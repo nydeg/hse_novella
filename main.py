@@ -12,7 +12,10 @@ fpsClock = pygame.time.Clock()
 pygame.display.set_caption('HSE! STUDENT! LIFE!')
 width = info.current_w
 height = info.current_h
-
+if height / width < 0.625:
+    k = 1.05
+else:
+    k = 1
 screen = pygame.display.set_mode((width, height), pygame.FULLSCREEN | pygame.SCALED | pygame.HWSURFACE)
 game_started = False
 font = pygame.font.Font('TT Norms Pro Regular.otf', 30)
@@ -59,8 +62,7 @@ dec_sprites = pygame.sprite.Group()
 # starting screen
 back = BackGround(startback)
 st1 = Button([width / 4, height / 2 + 50], 's', font, (0, 0, 0), sb1, (808, 152), (1, 0, 0))
-st2 = Button([width / 4 + 10, height / 2 + 200], '', font, (0, 0, 0), sb2,
-             (804, 151), (2, 0, 0))
+st2 = Button([width / 4 + 10, height / 2 + 200], '', font, (0, 0, 0), sb2, (804, 151), (2, 0, 0))
 st3 = Button([width / 4, height / 2 + 350], '', font, (0, 0, 0), sb3, (800, 150), (3, 0, 0))
 use_sprites.add(st1)
 use_sprites.add(st2)
@@ -129,36 +131,33 @@ def level(num):
             dec_sprites.add(h2)
     dlg = BackGround(dg)
     dec_sprites.add(dlg)
-    frw = Button([width - 150 , 50 ], '', font, (0, 0, 0), sk, (240 , 60 ), (num[0], num[1],
-                    min(mx[(num[0], num[1])], num[2] + 1)))
-    bck = Button([150 , 50], '', font, (0, 0, 0), bc, (240 , 60 ),
-                 (num[0], num[1], max(num[2] - 1, 0)))
+    frw = Button([width - 150 , 50 ], '', font, (0, 0, 0), sk, (240 , 60 ), (num[0], num[1], min(mx[(num[0], num[1])], num[2] + 1)))
+    bck = Button([150 , 50], '', font, (0, 0, 0), bc, (240 , 60 ), (num[0], num[1], max(num[2] - 1, 0)))
     exi = Button([width / 2, 60], '', font, (0, 0, 0), ex, (300, 120), (0, 0))
     use_sprites.add(bck)
     use_sprites.add(frw)
     use_sprites.add(exi)
     if num[2] == mx[num[0], num[1]] and num not in finale.keys():
-        ch1 = Button([width / 2, height * 0.2], '', font, (0, 0, 0), btup, (width, height * 0.495),
+        ch1 = Button([width / 2, height * 0.2 * k], '', font, (0, 0, 0), btup, (width, height * 0.495 * k),
                      btn[num[0], num[1], 1][1])
-        ch2 = Button([width / 2, height * 0.72], '', font, (0, 0, 0), btdn, (width, height * 0.63),
+        ch2 = Button([width / 2, height * 0.72 * k], '', font, (0, 0, 0), btdn, (width, height * 0.63 * k),
                      btn[num[0], num[1], 2][1])
         use_sprites.add(ch1)
         use_sprites.add(ch2)
-        textpos = (int(width / 2 - width * 0.0052 * len(btn[num[0], num[1], 1][0])), height * 0.344)
-        print(textpos)
+        textpos = (width / 2, 330)
         blit_text(ch1.image, btn[num[0], num[1], 1][0], textpos, font)
-        textpos = (int(width / 2 - width * 0.0052 * len(btn[num[0], num[1], 2][0])), height * 0.083)
+        textpos = (width / 2, 80)
         blit_text(ch2.image, btn[num[0], num[1], 2][0], textpos, font)
     if num in finale.keys():
-        ch1 = Button([width / 2, height * 0.2], '', font, (0, 0, 0), btup, (width, 475),
+        ch1 = Button([width / 2, height * 0.2 * k], '', font, (0, 0, 0), btup, (width, 475),
                      (-1, finale[num]))
-        ch2 = Button([width / 2, height * 0.72], '', font, (0, 0, 0), btdn, (width, 605),
+        ch2 = Button([width / 2, height * 0.72 * k], '', font, (0, 0, 0), btdn, (width, 605),
                      (-1, finale[num]))
         use_sprites.add(ch1)
         use_sprites.add(ch2)
-        textpos = (int(width / 2 - width * 0.0052 * 7), height * 0.344)
+        textpos = (int(width / 2), height * 0.344 * k)
         blit_text(ch1.image, 'THE END', textpos, font)
-        textpos = (int(width / 2 - width * 0.0052 * 7), height * 0.083)
+        textpos = (int(width / 2), height * 0.083 * k)
         blit_text(ch2.image, 'THE END', textpos, font)
 
     textpos = (width * 0.143, height * 0.76)
