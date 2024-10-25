@@ -12,7 +12,7 @@ fpsClock = pygame.time.Clock()
 pygame.display.set_caption('HSE! STUDENT! LIFE!')
 width = info.current_w
 height = info.current_h
-screen = pygame.display.set_mode((width, height), pygame.FULLSCREEN | pygame.SCALED)
+screen = pygame.display.set_mode((width, height), pygame.FULLSCREEN | pygame.SCALED | pygame.HWSURFACE)
 game_started = False
 font = pygame.font.Font('TT Norms Pro Regular.otf', 30)
 nm = (0, 0)
@@ -143,7 +143,7 @@ def level(num):
         textpos = (width / 2, 80)
         blit_text(ch2.image, 'THe EnD', textpos, font)
 
-    textpos = (220, 835)
+    textpos = (width * 0.143, height * 0.76)
     blit_text(dlg.image, text[num], textpos, font)
 
 
